@@ -27,7 +27,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "y",
+  "name": "@simbathesailor/use-intersection-observer",
   "author": "simbathesailor",
   "module": "dist/use-intersection-observer.esm.js",
   "devDependencies": {

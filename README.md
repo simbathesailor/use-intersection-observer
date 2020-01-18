@@ -36,9 +36,9 @@ yarn add @simbathesailor/use-intersection-observer
 
 ## Demo
 
-[Demo App](https://nm7ls.csb.app/)
+[Demo App](https://ywwpb.csb.app/)
 
-[Full Codesandbox Code](https://codesandbox.io/s/useintersectionobserver-nm7ls)
+[Full Codesandbox Code](https://codesandbox.io/s/useintersectionobserver-ywwpb)
 
 ## Usage
 
