@@ -43,7 +43,7 @@ yarn add @simbathesailor/use-intersection-observer
 ## Usage
 
 ```jsx
-import useIntersectionObserver from '@simbathesailor/use-intersection-observer';
+import { useIntersectionObserver } from '@simbathesailor/use-intersection-observer';
 
 const defaultVisibilityCondition = (entry: IntersectionObserverEntry) => {
   if (entry.intersectionRatio >= 1) {
