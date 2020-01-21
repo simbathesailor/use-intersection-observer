@@ -14,6 +14,26 @@ interface Iaction {
 interface Window {
   IntersectionObserver: Function;
 }
+function useHotRefs(
+  value: any,
+  dependencies?: any[]
+): [React.MutableRefObject<any>] {
+  const fnRef = React.useRef(value);
+
+  const dependenciesFinal = (() => {
+    if (Array.isArray(dependencies)) {
+      return [...dependencies];
+    }
+    return [Math.random()];
+  })();
+
+  React.useEffect(() => {
+    fnRef.current = value;
+  }, [...dependenciesFinal]);
+
+  return [fnRef];
+}
+
 function IntersectionObserverReducer(state: any, action: Iaction) {
   switch (action.type) {
     case 'SETINTERSECTIONOBJ': {
@@ -56,7 +76,12 @@ interface IOptions {
   visibilityCondition?: (entry: IntersectionObserverEntry) => boolean;
 }
 
-type useIntersectionObserverReturn = [boolean, any, any];
+type useIntersectionObserverReturn = [
+  boolean,
+  any,
+  any,
+  React.MutableRefObject<any>
+];
 
 /***
  * To use the the intersection Observer
@@ -152,10 +177,11 @@ function useIntersectionObserver(
       //   entry.time
     });
   }
-  const newCallbackDefault = React.useRef(callbackResolved);
-  React.useEffect(() => {
-    newCallbackDefault.current = callbackResolved;
-  });
+  // const newCallbackDefault = React.useRef(callbackResolved);
+  // React.useEffect(() => {
+  //   newCallbackDefault.current = callbackResolved;
+  // });
+  const [newCallbackDefault] = useHotRefs(callbackResolved);
   /**
    * Setting callback Ref
    */
@@ -214,7 +240,7 @@ function useIntersectionObserver(
       }
     };
   }, [boxElem, rootElemNew, rootMargin, when, callbackRef, threshold]);
-  return [isVisible, boxElemCallback, rootCallbackRef];
+  return [isVisible, boxElemCallback, rootCallbackRef, observerRef.current];
 }
 
 export { useIntersectionObserver };

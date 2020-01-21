@@ -109,7 +109,7 @@ const App = () => {
 
 ## Return Data Types and Description
 
-The hooks return an array. Let's say that array name is **Arr**.
+The hook returns an array. Let's say that array name is **Arr**.
 
 | Index  | Name                   | Type     | Description                                                                               |
 | ------ | ---------------------- | -------- | ----------------------------------------------------------------------------------------- |
