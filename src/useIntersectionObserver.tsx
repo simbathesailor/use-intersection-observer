@@ -29,6 +29,7 @@ function useHotRefs(
 
   React.useEffect(() => {
     fnRef.current = value;
+    // eslint-disable-next-line
   }, [...dependenciesFinal]);
 
   return [fnRef];
