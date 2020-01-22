@@ -14,23 +14,12 @@ interface Iaction {
 interface Window {
   IntersectionObserver: Function;
 }
-function useHotRefs(
-  value: any,
-  dependencies?: any[]
-): [React.MutableRefObject<any>] {
+function useHotRefs(value: any): [React.MutableRefObject<any>] {
   const fnRef = React.useRef(value);
-
-  const dependenciesFinal = (() => {
-    if (Array.isArray(dependencies)) {
-      return [...dependencies];
-    }
-    return [Math.random()];
-  })();
 
   React.useEffect(() => {
     fnRef.current = value;
-    // eslint-disable-next-line
-  }, [...dependenciesFinal]);
+  });
 
   return [fnRef];
 }
