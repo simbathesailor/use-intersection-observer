@@ -91,6 +91,7 @@ type useIntersectionObserverReturn = [
  */
 const defaultVisibilityCondition = (
   entry: IntersectionObserverEntry,
+  /* tslint:disable:no-unused-variable */
   observer: IntersectionObserver
 ) => {
   if (entry.intersectionRatio >= 1) {
