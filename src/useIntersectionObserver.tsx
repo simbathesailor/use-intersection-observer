@@ -89,7 +89,10 @@ type useIntersectionObserverReturn = [
  *  entry.target
  *  entry.time
  */
-const defaultVisibilityCondition = (entry: IntersectionObserverEntry) => {
+const defaultVisibilityCondition = (
+  entry: IntersectionObserverEntry,
+  observer: IntersectionObserver
+) => {
   if (entry.intersectionRatio >= 1) {
     return true;
   }
@@ -154,7 +157,7 @@ function useIntersectionObserver(
       }
       dispatch({
         type: 'SET_VISIBILITY',
-        data: finalVisibilityFunction(entry),
+        data: finalVisibilityFunction(entry, observerRef.current),
       });
       // Each entry describes an intersection change for one observed
       // target element:
@@ -167,10 +170,6 @@ function useIntersectionObserver(
       //   entry.time
     });
   }
-  // const newCallbackDefault = React.useRef(callbackResolved);
-  // React.useEffect(() => {
-  //   newCallbackDefault.current = callbackResolved;
-  // });
   const [newCallbackDefault] = useHotRefs(callbackResolved);
   /**
    * Setting callback Ref

@@ -111,11 +111,12 @@ const App = () => {
 
 The hook returns an array. Let's say that array name is **Arr**.
 
-| Index  | Name                   | Type     | Description                                                                               |
-| ------ | ---------------------- | -------- | ----------------------------------------------------------------------------------------- |
-| Arr[0] | isVisible              | boolean  | Tells whether the target element is visible or not                                        |
-| Arr[1] | targetElementRef       | Function | The target element ref, add it to target element                                          |
-| Arr[2] | rootElementCallbackRef | Function | The root element ref, add it to root element or can just leave it if document is the root |
+| Index  | Name                   | Type                         | Description                                                                               |
+| ------ | ---------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
+| Arr[0] | isVisible              | boolean                      | Tells whether the target element is visible or not                                        |
+| Arr[1] | targetElementRef       | Function                     | The target element ref, add it to target element                                          |
+| Arr[2] | rootElementCallbackRef | Function                     | The root element ref, add it to root element or can just leave it if document is the root |
+| Arr[3] | observer               | Intersection observer Object | Can be used to un-observe the target.                                                     |
 
 ## Concept
 
