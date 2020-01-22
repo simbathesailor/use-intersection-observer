@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    [
+      "@simbathesailor/babel-plugin-use-what-changed",
+      {
+        "active": true
+      }
+    ]
+  ],
+  "comments": true
+}

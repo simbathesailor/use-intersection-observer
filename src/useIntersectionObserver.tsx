@@ -44,6 +44,12 @@ function IntersectionObserverReducer(state: any, action: Iaction) {
         isVisible: action.data,
       };
     }
+    case 'SPREAD_VALUES': {
+      return {
+        ...state,
+        ...action.data,
+      };
+    }
   }
 }
 
@@ -123,7 +129,7 @@ function useIntersectionObserver(
     ...options,
   };
   const [rootElemNew, rootCallbackRef] = useRefCallback();
-  const [boxElem, boxElemCallback] = useRefCallback();
+  const [targetElement, targetElementCallback] = useRefCallback();
 
   const [state, dispatch] = React.useReducer(
     IntersectionObserverReducer,
@@ -140,25 +146,23 @@ function useIntersectionObserver(
     observer: IntersectionObserver
   ): any {
     entries.forEach((entry: IntersectionObserverEntry) => {
-      // setIntersectionObj(entry);
-      dispatch({
-        type: 'SETINTERSECTIONOBJ',
-        data: entry,
-      });
       if (!observerInState) {
         dispatch({
           type: 'SETOBSERVERHANDLE',
           data: observer,
         });
-        // setObserver(observer);
       }
       let finalVisibilityFunction = defaultVisibilityCondition;
       if (visibilityCondition) {
         finalVisibilityFunction = visibilityCondition;
       }
+      console.log('I will call the funnnnnnn');
       dispatch({
-        type: 'SET_VISIBILITY',
-        data: finalVisibilityFunction(entry, observerRef.current),
+        type: 'SPREAD_VALUES',
+        data: {
+          intersectionObj: entry,
+          isVisible: finalVisibilityFunction(entry, observerRef.current),
+        },
       });
       // Each entry describes an intersection change for one observed
       // target element:
@@ -172,10 +176,10 @@ function useIntersectionObserver(
     });
   }
   const [newCallbackDefault] = useHotRefs(callbackResolved);
+
   /**
    * Setting callback Ref
    */
-
   React.useEffect(() => {
     if (!checkFeasibility) {
       return;
@@ -196,21 +200,26 @@ function useIntersectionObserver(
       return;
     }
     if (!when) {
-      if (observerRef.current && observerRef.current != null && boxElem) {
-        observerRef.current.unobserve(boxElem);
+      if (observerRef.current && observerRef.current != null && targetElement) {
+        observerRef.current.unobserve(targetElement);
+        dispatch({
+          type: 'SETOBSERVERHANDLE',
+          data: null,
+        });
       }
     }
-  }, [observerRef, boxElem, when]);
+  }, [observerRef, targetElement, when]);
 
   /**
    * Effect responsible for creating intersection observer and
    * registering the observer for specific element
    */
+  // uwc-debug
   React.useEffect(() => {
     if (!checkFeasibility) {
       return;
     }
-    const currentELem = boxElem;
+    const currentELem = targetElement;
     const currentRootElem = rootElemNew;
     if (when) {
       let observer = new IntersectionObserver(callbackRef.current, {
@@ -225,12 +234,18 @@ function useIntersectionObserver(
       }
     }
     return () => {
-      if (currentELem && observerRef.current) {
-        observerRef.current.unobserve(currentELem);
-      }
+      // if (currentELem && observerRef.current) {
+      //   observerRef.current.unobserve(currentELem);
+      // }
     };
-  }, [boxElem, rootElemNew, rootMargin, when, callbackRef, threshold]);
-  return [isVisible, boxElemCallback, rootCallbackRef, observerRef.current];
+  }, [targetElement, rootElemNew, rootMargin, when, callbackRef, threshold]);
+
+  return [
+    isVisible,
+    targetElementCallback,
+    rootCallbackRef,
+    observerRef.current,
+  ];
 }
 
 export { useIntersectionObserver };

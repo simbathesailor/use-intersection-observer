@@ -31,6 +31,8 @@
   "author": "simbathesailor",
   "module": "dist/use-intersection-observer.esm.js",
   "devDependencies": {
+    "@simbathesailor/babel-plugin-use-what-changed": "^0.1.13",
+    "@simbathesailor/use-what-changed": "^0.1.19",
     "@types/jest": "^24.9.0",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",

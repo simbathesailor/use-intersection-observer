@@ -5,6 +5,7 @@ import { useIntersectionObserver } from '../.';
 import './styles.css';
 
 const defaultVisibilityCondition = (entry: IntersectionObserverEntry) => {
+  // console.log('visibilityCondition', entry);
   if (entry.intersectionRatio >= 1) {
     return true;
   }
@@ -19,9 +20,13 @@ const defaultOptions = {
 };
 
 const App = () => {
-  const [isVisible, boxElemCallback, rootCallbackRef] = useIntersectionObserver(
-    defaultOptions
-  );
+  const [
+    isVisible,
+    boxElemCallback,
+    rootCallbackRef,
+    observer,
+  ] = useIntersectionObserver(defaultOptions);
+  console.log('TCL: App -> observer', observer);
   return (
     <div className="App">
       <h1>See for the visibility of box at bottom of page</h1>
